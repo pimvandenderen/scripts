@@ -1,0 +1,19 @@
+﻿{
+    "mode": "All",
+    "parameters": {},
+    "displayName": "Custom - Deny Public IP addresses from being created",
+    "description": "This custom policy denies all public IP addresses from being created.",
+    "policyRule": {
+        "if": {
+            "anyOf": [
+                {
+                    "source": "action",
+                    "like": "Microsoft.Network/publicIPAddresses/*"
+                }
+            ]
+        },
+        "then": {
+            "effect": "deny"
+        }
+    }
+}
