@@ -1,0 +1,23 @@
+﻿{
+    "rules": [
+      {
+        "enabled": true,
+        "name": "DeleteAfter21Months",
+        "type": "Lifecycle",
+        "definition": {
+          "actions": {
+            "baseBlob": {
+              "delete": {
+                "daysAfterModificationGreaterThan": 639
+              }
+            }
+          },
+          "filters": {
+            "blobTypes": [
+              "blockBlob"
+            ]
+          }
+        }
+      }
+    ]
+  }
