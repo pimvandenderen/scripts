@@ -1,0 +1,20 @@
+﻿class TokenCredentialTokenProvider : ITokenProvider
+{
+public TokenCredentialTokenProvider(TokenCredential credential)
+{
+Credential = credential;
+}
+
+
+
+public TokenCredential Credential { get; }
+
+
+
+public async Task<SecurityToken> GetTokenAsync(string appliesTo, TimeSpan timeout)
+{
+var trc = new TokenRequestContext(new[] { "https://servicebus.azure.net/.default" });
+var token = await Credential.GetTokenAsync(trc, CancellationToken.None);
+return new JsonSecurityToken(token.Token, appliesTo);
+}
+}
