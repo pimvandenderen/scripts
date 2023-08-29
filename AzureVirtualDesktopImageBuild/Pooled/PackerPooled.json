@@ -1,0 +1,30 @@
+{
+    "builders": [{
+      "type": "azure-arm",
+  
+      "client_id": "__client_id__",
+      "client_secret": "__client_secret__",
+      "subscription_id": "__subscription_id__",
+  
+      "managed_image_resource_group_name": "AVDImages",
+      "managed_image_name": "AVD-Pooled",
+      "managed_image_storage_account_type": "Premium_LRS",
+  
+      "os_type": "Windows",
+      "image_publisher": "MicrosoftWindowsDesktop",
+      "image_offer": "office-365",
+      "image_sku": "20h1-evd-o365pp",
+  
+      "communicator": "winrm",
+      "winrm_use_ssl": true,
+      "winrm_insecure": true,
+      "winrm_timeout": "5m",
+      "winrm_username": "packer", 
+      "build_resource_group_name": "Packer-build",
+      "vm_size": "Standard_D2s_v4"
+    }],
+    "provisioners": [{
+      "type": "powershell",
+      "script": "Pooled.ps1"
+    }]
+  }

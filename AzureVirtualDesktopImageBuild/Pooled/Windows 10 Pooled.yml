@@ -1,0 +1,33 @@
+# Variable 'client_id' was defined in the Variables tab
+# Variable 'client_secret' was defined in the Variables tab
+# Variable 'subscription_id' was defined in the Variables tab
+jobs:
+- job: Job_1
+  displayName: Packer Build
+  pool:
+    name: Default
+  steps:
+  - checkout: self
+  - task: PackerTool@0
+    displayName: 'Use Packer '
+  - task: CopyFiles@2
+    displayName: 'Copy Files to: $(System.DefaultWorkingDirectory)'
+    inputs:
+      SourceFolder: Pooled
+      Contents: Pooled.ps1
+      TargetFolder: $(System.DefaultWorkingDirectory)
+  - task: replacetokens@5
+    displayName: Replace tokens in PackerPooled.json
+    inputs:
+      rootDirectory: Pooled
+      targetFiles: PackerPooled.json
+      tokenPattern: custom
+      tokenPrefix: __
+      tokenSuffix: __
+  - task: PackerBuild@1
+    displayName: Build immutable image
+    inputs:
+      templateType: custom
+      customTemplateLocation: Pooled/PackerPooled.json
+      imageUri: BuildImage
+...
