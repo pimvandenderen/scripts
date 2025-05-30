@@ -71,14 +71,22 @@ Import-Module Az.Monitor
 
 
 
+# Connect to Azure
 try {
-    # Connect to Azure
-    Connect-AzAccount -ErrorAction Stop
+    # Check if user is already authenticated
+    $context = Get-AzContext
+    if (-not $context.Account) {
+        # Not authenticated, prompt for login
+        Connect-AzAccount -ErrorAction Stop
+    } else {
+        Write-Host "Already authenticated as $($context.Account.Id)"
+    }
 } catch {
     Write-Error "Failed to connect to Azure: $_"
     exit 1
 }
 
+# Retrieve all subscriptions
 try {
     # Get all subscriptions
     $subscriptions = Get-AzSubscription -ErrorAction Stop
