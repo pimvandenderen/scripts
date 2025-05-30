@@ -37,6 +37,12 @@ This PowerShell script connects to your Azure account, iterates through all your
 - No write or admin permissions are required in Azure for running the script itself.
 - Local administrator rights may be needed to install PowerShell modules if not already present.
 
+**Example CSV Output:**
+"SubscriptionId","SubscriptionName","ServiceIssues","PlannedMaintenance","HealthAdvisories","SecurityAdvisories"
+"11111111-aaaa-bbbb-cccc-222222222222","Contoso Production",True,True,True,True
+"33333333-dddd-eeee-ffff-444444444444","Contoso Dev",True,False,True,False
+"55555555-gggg-hhhh-iiii-666666666666","Contoso Test",False,False,False,False
+
 Note: You may need to run PowerShell as Administrator to install modules if they are not already present.
 
 #>
